@@ -11,39 +11,39 @@ public class PurchaseController : ControllerBase
         _purchaseService = purchaseService;
     }
 
-    [HttpGet("Purchases")]
-    public async Task<ActionResult<IEnumerable<Purchase>>> Purchases()
+    [HttpGet("GetPurchases")]
+    public async Task<ActionResult<IEnumerable<PurchaseDTO>>> Purchases()
     {
-        var purchase = _purchaseService.Purchases();
+        var purchase = _purchaseService.GetPurchases();
         return Ok(purchase);
     }
 
     [HttpGet("{id:string}", Name = "PurchaseDetailsById")]
-    public async Task<ActionResult<Purchase>> PurchaseDetailsById(string id)
+    public async Task<ActionResult<PurchaseDTO>> PurchaseDetailsById(string id)
     {
-        var purchase = _purchaseService.Purchase(id);
+        var purchase = _purchaseService.DeletePurchaseById(id);
         return Ok(purchase);
     }
 
     [HttpPost]
-    [Route("Purchase")]
-    public ActionResult<Purchase> Purchase(Purchase purchasePayload)
+    [Route("CreatePurchase")]
+    public ActionResult<PurchaseDTO> CreatePurchase(PurchaseDTO purchasePayload)
     {
-        var purchase = _purchaseService.Purchase(purchasePayload);
+        var purchase = _purchaseService.CreatePurchase(purchasePayload);
         return Ok(purchase);
     }
 
-    [HttpPut("{id:string}", Name = "PurchaseById")]
-    public ActionResult<Purchase> PurchaseById(string id, Purchase purchaseToUpdate)
+    [HttpPut("{id:string}", Name = "UpdatePurchaseById")]
+    public ActionResult<PurchaseDTO> UpdatePurchaseById(string id, PurchaseDTO purchaseToUpdate)
     {
-        var purchase = _purchaseService.Purchase(id, purchaseToUpdate);
+        var purchase = _purchaseService.UpdatePurchaseById(id, purchaseToUpdate);
         return Ok(purchase);
     }
 
-    [HttpDelete("{id:string}", Name = "PurchaseById")]
-    public ActionResult<Purchase> PurchaseById(string id)
+    [HttpDelete("{id:string}", Name = "DeletePurchaseById")]
+    public ActionResult<PurchaseDTO> DeletePurchaseById(string id)
     {
-        var purchase = _purchaseService.Purchase(id);
+        var purchase = _purchaseService.DeletePurchaseById(id);
         return Ok(purchase);
     }
 
