@@ -1,6 +1,4 @@
-﻿
-
-namespace ECommerce.ProductAPI.Services;
+﻿namespace ECommerce.ProductAPI.Services;
 
 public class ProductService : IProductService
 {
@@ -26,32 +24,42 @@ public class ProductService : IProductService
         return productsMapped;
     }
 
-
     public ProductDTO CreateProduct(ProductDTO productToCreate)
     {
-        Product product = productToCreate.MapToProduct();
+        Product mappedToProduct = productToCreate.MapToProduct();
 
-        var productCreated = _unitOfWork.ProductRepository.Create(productToCreate);
+        var productCreated = _unitOfWork.ProductRepository.Create(mappedToProduct);
 
         _unitOfWork.Commit();
 
         return productCreated.MapToProductDTO();
     }
 
-    public ProductDTO DeleteProduct(string id)
+    public ProductDTO DeleteProductById(string id)
     {
+        var foundProduct = GetAndReturnProduct(id);
 
-        var product = _unitOfWork.ProductRepository.DeleteProduct();
+        _unitOfWork.ProductRepository.Delete(foundProduct);
+
+        _unitOfWork.Commit();
+
+        return foundProduct.MapToProductDTO();
     }
 
-    public ProductDTO UpdateProduct(string id, ProductDTO product)
+    public ProductDTO UpdateProductById(string id, ProductDTO product)
     {
-        var product = _unitOfWork.ProductRepository.UpdateProduct();
+        var foundProduct = GetAndReturnProduct(id);
+
+        _unitOfWork.ProductRepository.Update(foundProduct);
+
+        _unitOfWork.Commit();
+
+        return foundProduct.MapToProductDTO();
     }
 
     private Product? GetAndReturnProduct(string id)
     {
-        var product = _unitOfWork.ProductRepository.Get(p => p.ProdutoId == id);
+        var product = _unitOfWork.ProductRepository.Details(p => p.Id == Guid.Parse(id));
         if (product == null)
             throw new Exception($"Product with id {id} not found!");
 
