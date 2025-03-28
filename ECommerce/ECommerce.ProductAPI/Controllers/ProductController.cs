@@ -36,14 +36,14 @@ public class ProductController : ControllerBase
     [HttpPut("{id:string}", Name = "UpdateProductById")]
     public ActionResult<ProductDTO> UpdateProductById(string id, ProductDTO productToUpdate)
     {
-        var product = _productService.UpdateProduct(id, productToUpdate);
+        var product = _productService.UpdateProductById(id, productToUpdate);
         return Ok(product);
     }
 
     [HttpDelete("{id:string}", Name = "DeleteProductById")]
     public ActionResult<ProductDTO> DeleteProductById(string id)
     {
-        var product = _productService.DeleteProduct(id);
+        var product = _productService.DeleteProductById(id);
         return Ok(product);
     }
 
