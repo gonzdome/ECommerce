@@ -11,4 +11,5 @@ public class Purchase : CommonModelData
     public Guid ProductId { get; set; }
 
     public int Quantity { get; set; } = 1;
+    public bool Confirmed { get; set; } = false;
 }
