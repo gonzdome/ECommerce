@@ -3,7 +3,8 @@
 public class ProductService : IProductService
 {
     private readonly IUnitOfWork _unitOfWork;
-    ProductService(IUnitOfWork unitOfWork)
+
+    public ProductService(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
