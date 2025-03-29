@@ -10,28 +10,29 @@ public class CommonRepository<T> : ICommonRepository<T> where T : class
     {
         _context = context;
     }
-    public IEnumerable<T> GetAll()
+
+    public async Task<IEnumerable<T>> GetAll()
     {
         return _context.Set<T>();
     }
 
-    public T? Details(Expression<Func<T, bool>> predicate)
+    public async Task<T?> Details(Expression<Func<T, bool>> predicate)
     {
         return _context.Set<T>().FirstOrDefault(predicate);
     }
 
-    public T Create(T entity)
+    public async Task<T> Create(T entity)
     {
-        _context.Set<T>().Add(entity);
+        await _context.Set<T>().AddAsync(entity);
         return entity;
     }
-    public T Update(T entity)
+    public async Task<T> Update(T entity)
     {
         _context.Set<T>().Update(entity);
         return entity;
     }
 
-    public T Delete(T entity)
+    public async Task<T> Delete(T entity)
     {
         _context.Set<T>().Remove(entity);
         return entity;
