@@ -1,4 +1,5 @@
 ﻿global using Microsoft.AspNetCore.Mvc;
+global using System.ComponentModel.DataAnnotations;
 
 global using ECommerce.ProductAPI.Context;
 global using Microsoft.EntityFrameworkCore;
