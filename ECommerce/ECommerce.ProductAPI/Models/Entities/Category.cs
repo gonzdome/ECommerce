@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ECommerce.ProductAPI.Models.Entities;
+﻿namespace ECommerce.ProductAPI.Models.Entities;
 
 public class Category : CommonModelData
 {
