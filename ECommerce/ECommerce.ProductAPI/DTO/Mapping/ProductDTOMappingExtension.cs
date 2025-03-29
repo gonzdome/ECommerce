@@ -1,38 +1,46 @@
-﻿namespace ECommerce.ProductAPI.DTO.DTOMapping;
+﻿using ECommerce.ProductAPI.Models.Entities;
+
+namespace ECommerce.ProductAPI.DTO.DTOMapping;
 
 public static class ProductDTOMappingExtension
 {
-    public static ProductDTO MapToProductDTO(this Product category)
+    public static ProductDTO MapToProductDTO(this Product product)
     {
-        if (category == null)
+        if (product == null)
             return null;
 
         return new ProductDTO()
         {
-            Id = category.Id,
-            Description = category.Description,
-            Price = category.Price,
-            CreatedAt = category.CreatedAt,
-            UpdatedAt = category.UpdatedAt,
-            Active = category.Active,
-            Excluded = category.Excluded,
+            Id = product.Id,
+            Name = product.Name,
+            Description = product.Description,
+            Stock = product.Stock,
+            Price = product.Price,
+            CategoryId = product.CategoryId,
+            CreatedAt = product.CreatedAt,
+            UpdatedAt = product.UpdatedAt,
+            Active = product.Active,
+            Excluded = product.Excluded,
         };
     }
 
-    public static Product MapToProduct(this ProductDTO categoryDTO)
+    public static Product MapToProduct(this ProductDTO productDTO)
     {
-        if (categoryDTO == null)
+        if (productDTO == null)
             return null;
 
         return new Product()
         {
-            Id = categoryDTO.Id,
-            Description = categoryDTO.Description,
-            Price = categoryDTO.Price,
-            CreatedAt = categoryDTO.CreatedAt,
-            UpdatedAt = categoryDTO.UpdatedAt,
-            Active = categoryDTO.Active,
-            Excluded = categoryDTO.Excluded,
+            Id = productDTO.Id,
+            Name = productDTO.Name,
+            Description = productDTO.Description,
+            Stock = productDTO.Stock,
+            Price = productDTO.Price,
+            CategoryId = productDTO.CategoryId,
+            CreatedAt = productDTO.CreatedAt,
+            UpdatedAt = productDTO.UpdatedAt,
+            Active = productDTO.Active,
+            Excluded = productDTO.Excluded,
         };
     }
 }
