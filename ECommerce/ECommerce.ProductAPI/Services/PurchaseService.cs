@@ -9,58 +9,58 @@ public class PurchaseService : IPurchaseService
         _unitOfWork = unitOfWork;
     }
 
-    public PurchaseDTO DetailPurchase(string id)
+    public async Task<PurchaseDTO> DetailPurchase(string id)
     {
-        var purchase = GetAndReturnPurchase(id);
+        var purchase = await GetAndReturnPurchase(id);
 
         return purchase.MapToPurchaseDTO();
     }
 
-    public IEnumerable<PurchaseDTO> GetPurchases()
+    public async Task<IEnumerable<PurchaseDTO>> GetPurchases()
     {
-        IEnumerable<Purchase> purchases = _unitOfWork.PurchaseRepository.GetAll().Where(p => !p.Excluded && p.Active);
+        IEnumerable<Purchase> purchases = (await _unitOfWork.PurchaseRepository.GetAll()).Where(p => !p.Excluded && p.Active); ;
 
         var purchasesMapped = purchases.Select(p => p.MapToPurchaseDTO());
 
         return purchasesMapped;
     }
 
-    public PurchaseDTO CreatePurchase(PurchaseDTO purchaseToCreate)
+    public async Task<PurchaseDTO> CreatePurchase(PurchaseDTO purchaseToCreate)
     {
         Purchase mappedToPurchase = purchaseToCreate.MapToPurchase();
 
-        var purchaseCreated = _unitOfWork.PurchaseRepository.Create(mappedToPurchase);
+        var purchaseCreated = await _unitOfWork.PurchaseRepository.Create(mappedToPurchase);
 
-        _unitOfWork.Commit();
+        await _unitOfWork.Commit();
 
         return purchaseCreated.MapToPurchaseDTO();
     }
 
-    public PurchaseDTO DeletePurchaseById(string id)
+    public async Task<PurchaseDTO> DeletePurchaseById(string id)
     {
-        var foundPurchase = GetAndReturnPurchase(id);
+        var foundPurchase = await GetAndReturnPurchase(id);
 
-        _unitOfWork.PurchaseRepository.Delete(foundPurchase);
+        await _unitOfWork.PurchaseRepository.Delete(foundPurchase);
 
-        _unitOfWork.Commit();
+        await _unitOfWork.Commit();
 
         return foundPurchase.MapToPurchaseDTO();
     }
 
-    public PurchaseDTO UpdatePurchaseById(string id, PurchaseDTO purchase)
+    public async Task<PurchaseDTO> UpdatePurchaseById(string id, PurchaseDTO purchase)
     {
-        var foundPurchase = GetAndReturnPurchase(id);
+        var foundPurchase = await GetAndReturnPurchase(id);
 
-        _unitOfWork.PurchaseRepository.Update(foundPurchase);
+        await _unitOfWork.PurchaseRepository.Update(foundPurchase);
 
-        _unitOfWork.Commit();
+        await _unitOfWork.Commit();
 
         return foundPurchase.MapToPurchaseDTO();
     }
 
-    private Purchase? GetAndReturnPurchase(string id)
+    private async Task<Purchase> GetAndReturnPurchase(string id)
     {
-        var purchase = _unitOfWork.PurchaseRepository.Details(p => p.Id == Guid.Parse(id) && !p.Excluded && p.Active);
+        var purchase = await _unitOfWork.PurchaseRepository.Details(p => p.Id == Guid.Parse(id) && !p.Excluded && p.Active);
         if (purchase == null)
             throw new Exception($"Purchase with id {id} not found!");
 

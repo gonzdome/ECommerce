@@ -2,9 +2,9 @@
 
 public interface IPurchaseService
 {
-    public IEnumerable<PurchaseDTO> GetPurchases();
-    public PurchaseDTO DetailPurchase(string id);
-    public PurchaseDTO CreatePurchase(PurchaseDTO purchase);
-    public PurchaseDTO UpdatePurchaseById(string id, PurchaseDTO purchase);
-    public PurchaseDTO DeletePurchaseById(string id);
+    public Task<IEnumerable<PurchaseDTO>> GetPurchases();
+    public Task<PurchaseDTO> DetailPurchase(string id);
+    public Task<PurchaseDTO> CreatePurchase(PurchaseDTO purchase);
+    public Task<PurchaseDTO> UpdatePurchaseById(string id, PurchaseDTO purchase);
+    public Task<PurchaseDTO> DeletePurchaseById(string id);
 }
