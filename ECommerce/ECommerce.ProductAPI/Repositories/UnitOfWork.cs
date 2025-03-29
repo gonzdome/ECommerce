@@ -27,12 +27,12 @@ public class UnitOfWork : IUnitOfWork
         get { return _purchaseRepository = _purchaseRepository ?? new PurchaseRepository(_context); }
     }
 
-    public void Commit()
+    public async Task Commit()
     {
         _context.SaveChanges();
     }
 
-    public void Dispose()
+    public async Task Dispose()
     {
         _context.Dispose();
     }

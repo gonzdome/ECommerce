@@ -6,5 +6,5 @@ public interface IUnitOfWork
     ICategoryRepository CategoryRepository { get; }
     IPurchaseRepository PurchaseRepository { get; }
 
-    void Commit();
+    Task Commit();
 }
