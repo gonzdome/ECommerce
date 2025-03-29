@@ -18,7 +18,7 @@ public class PurchaseService : IPurchaseService
 
     public IEnumerable<PurchaseDTO> GetPurchases()
     {
-        IEnumerable<Purchase> purchases = _unitOfWork.PurchaseRepository.GetAll();
+        IEnumerable<Purchase> purchases = _unitOfWork.PurchaseRepository.GetAll().Where(p => !p.Excluded && p.Active);
 
         var purchasesMapped = purchases.Select(p => p.MapToPurchaseDTO());
 
@@ -60,7 +60,7 @@ public class PurchaseService : IPurchaseService
 
     private Purchase? GetAndReturnPurchase(string id)
     {
-        var purchase = _unitOfWork.PurchaseRepository.Details(p => p.Id == Guid.Parse(id));
+        var purchase = _unitOfWork.PurchaseRepository.Details(p => p.Id == Guid.Parse(id) && !p.Excluded && p.Active);
         if (purchase == null)
             throw new Exception($"Purchase with id {id} not found!");
 
