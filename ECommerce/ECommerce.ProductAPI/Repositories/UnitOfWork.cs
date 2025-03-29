@@ -5,16 +5,23 @@ public class UnitOfWork : IUnitOfWork
     public AppDbContext _context;
     private IProductRepository? _productRepository;
     private IPurchaseRepository? _purchaseRepository;
+    private ICategoryRepository? _categoryRepository;
 
-    public UnitOfWork(IProductRepository? productRepository, IPurchaseRepository? purchaseRepository)
+    public UnitOfWork(IProductRepository? productRepository, IPurchaseRepository? purchaseRepository, ICategoryRepository categoryRepository)
     {
         _productRepository = productRepository;
         _purchaseRepository = purchaseRepository;
+        _categoryRepository = categoryRepository;
     }
 
     public IProductRepository ProductRepository
     {
         get { return _productRepository = _productRepository ?? new ProductRepository(_context); }
+    }
+
+    public ICategoryRepository CategoryRepository
+    {
+        get { return _categoryRepository = _categoryRepository ?? new CategoryRepository(_context); }
     }
 
     public IPurchaseRepository PurchaseRepository
