@@ -4,21 +4,21 @@ namespace ECommerce.ProductAPI.Controllers;
 [Route("[controller]")]
 public class PurchaseController : ControllerBase
 {
-    private readonly PurchaseService _purchaseService;
+    private readonly IPurchaseService _purchaseService;
 
-    public PurchaseController(PurchaseService purchaseService)
+    public PurchaseController(IPurchaseService purchaseService)
     {
         _purchaseService = purchaseService;
     }
 
     [HttpGet("GetPurchases")]
-    public async Task<ActionResult<IEnumerable<PurchaseDTO>>> Purchases()
+    public async Task<ActionResult<IEnumerable<PurchaseDTO>>> GetPurchases()
     {
         var purchase = _purchaseService.GetPurchases();
         return Ok(purchase);
     }
 
-    [HttpGet("{id:string}", Name = "PurchaseDetailsById")]
+    [HttpGet("{id}", Name = "PurchaseDetailsById")]
     public async Task<ActionResult<PurchaseDTO>> PurchaseDetailsById(string id)
     {
         var purchase = _purchaseService.DeletePurchaseById(id);
@@ -33,14 +33,14 @@ public class PurchaseController : ControllerBase
         return Ok(purchase);
     }
 
-    [HttpPut("{id:string}", Name = "UpdatePurchaseById")]
+    [HttpPut("{id}", Name = "UpdatePurchaseById")]
     public ActionResult<PurchaseDTO> UpdatePurchaseById(string id, PurchaseDTO purchaseToUpdate)
     {
         var purchase = _purchaseService.UpdatePurchaseById(id, purchaseToUpdate);
         return Ok(purchase);
     }
 
-    [HttpDelete("{id:string}", Name = "DeletePurchaseById")]
+    [HttpDelete("{id}", Name = "DeletePurchaseById")]
     public ActionResult<PurchaseDTO> DeletePurchaseById(string id)
     {
         var purchase = _purchaseService.DeletePurchaseById(id);
