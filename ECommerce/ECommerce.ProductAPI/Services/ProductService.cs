@@ -9,23 +9,23 @@ public class ProductService : IProductService
         _unitOfWork = unitOfWork;
     }
 
-    public ProductDTO DetailProduct(string id)
+    public async Task<ProductDTO> DetailProductById(string id)
     {
-        var product = GetAndReturnProduct(id);
+        var product = await GetAndReturnProduct(id);
 
         return product.MapToProductDTO();
     }
 
-    public IEnumerable<ProductDTO> GetProducts()
+    public async Task<IEnumerable<ProductDTO>> GetProducts()
     {
-        IEnumerable<Product> products = _unitOfWork.ProductRepository.GetAll().Where(p => !p.Excluded && p.Active);
+        IEnumerable<Product> products = (await _unitOfWork.ProductRepository.GetAll()).Where(p => !p.Excluded && p.Active);
 
         var productsMapped = products.Select(p => p.MapToProductDTO());
 
         return productsMapped;
     }
 
-    public ProductDTO CreateProduct(ProductDTO productToCreate)
+    public async Task<ProductDTO> CreateProduct(ProductDTO productToCreate)
     {
         productToCreate.Id = Guid.NewGuid();
         productToCreate.CreatedAt = DateTime.Now;
@@ -35,42 +35,42 @@ public class ProductService : IProductService
 
         Product mappedToProduct = productToCreate.MapToProduct();
 
-        var productCreated = _unitOfWork.ProductRepository.Create(mappedToProduct);
+        var productCreated = await _unitOfWork.ProductRepository.Create(mappedToProduct);
 
-        _unitOfWork.Commit();
+        await _unitOfWork.Commit();
 
         return productCreated.MapToProductDTO();
     }
 
-    public ProductDTO UpdateProductById(string id, ProductDTO productToUpdate)
+    public async Task<ProductDTO> UpdateProductById(string id, ProductDTO productToUpdate)
     {
-        GetAndReturnProduct(id);
+        await GetAndReturnProduct(id);
 
         productToUpdate.Id = Guid.Parse(id);
         productToUpdate.UpdatedAt = DateTime.Now;
         var mappedProduct = productToUpdate.MapToProduct();
 
-        _unitOfWork.ProductRepository.Update(mappedProduct);
+        await _unitOfWork.ProductRepository.Update(mappedProduct);
 
-        _unitOfWork.Commit();
+        await _unitOfWork.Commit();
 
         return mappedProduct.MapToProductDTO();
     }
 
-    public ProductDTO DeleteProductById(string id)
+    public async Task<ProductDTO> DeleteProductById(string id)
     {
-        var foundProduct = GetAndReturnProduct(id);
+        var foundProduct = await GetAndReturnProduct(id);
 
-        _unitOfWork.ProductRepository.Delete(foundProduct);
+        await _unitOfWork.ProductRepository.Delete(foundProduct);
 
-        _unitOfWork.Commit();
+        await _unitOfWork.Commit();
 
         return foundProduct.MapToProductDTO();
     }
 
-    private Product? GetAndReturnProduct(string id)
+    private async Task<Product> GetAndReturnProduct(string id)
     {
-        var product = _unitOfWork.ProductRepository.Details(p => p.Id == Guid.Parse(id) && !p.Excluded && p.Active);
+        var product = await _unitOfWork.ProductRepository.Details(p => p.Id == Guid.Parse(id) && !p.Excluded && p.Active);
         if (product == null)
             throw new Exception($"Product with id {id} not found!");
 

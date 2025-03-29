@@ -2,9 +2,9 @@
 
 public interface IProductService
 {
-    public IEnumerable<ProductDTO> GetProducts();
-    public ProductDTO DetailProduct(string id);
-    public ProductDTO CreateProduct(ProductDTO product);
-    public ProductDTO UpdateProductById(string id, ProductDTO product);
-    public ProductDTO DeleteProductById(string id);
+    public Task<IEnumerable<ProductDTO>> GetProducts();
+    public Task<ProductDTO> DetailProductById(string id);
+    public Task<ProductDTO> CreateProduct(ProductDTO product);
+    public Task<ProductDTO> UpdateProductById(string id, ProductDTO product);
+    public Task<ProductDTO> DeleteProductById(string id);
 }
