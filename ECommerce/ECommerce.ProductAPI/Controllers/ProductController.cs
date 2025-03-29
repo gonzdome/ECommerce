@@ -21,27 +21,27 @@ public class ProductController : ControllerBase
     [HttpGet("{id}", Name = "GetProductDetailsById")]
     public async Task<ActionResult<ProductDTO>> GetProductDetailsById(string id)
     {
-        var product = _productService.DetailProduct(id);
+        var product = _productService.DetailProductById(id);
         return Ok(product);
     }
 
     [HttpPost]
     [Route("CreateProduct")]
-    public ActionResult<ProductDTO> CreateProduct(ProductDTO productPayload)
+    public async Task<ActionResult<ProductDTO>> CreateProduct(ProductDTO productPayload)
     {
         var product = _productService.CreateProduct(productPayload);
         return Ok(product);
     }
 
     [HttpPut("{id}", Name = "UpdateProductById")]
-    public ActionResult<ProductDTO> UpdateProductById(string id, ProductDTO productToUpdate)
+    public async Task<ActionResult<ProductDTO>> UpdateProductById(string id, ProductDTO productToUpdate)
     {
         var product = _productService.UpdateProductById(id, productToUpdate);
         return Ok(product);
     }
 
     [HttpDelete("{id}", Name = "DeleteProductById")]
-    public ActionResult<ProductDTO> DeleteProductById(string id)
+    public async Task<ActionResult<ProductDTO>> DeleteProductById(string id)
     {
         var product = _productService.DeleteProductById(id);
         return Ok(product);
