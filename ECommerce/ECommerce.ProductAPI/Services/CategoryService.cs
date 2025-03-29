@@ -1,4 +1,6 @@
-﻿namespace ECommerce.ProductAPI.Services;
+﻿using ECommerce.ProductAPI.Models.Entities;
+
+namespace ECommerce.ProductAPI.Services;
 
 public class CategoryService : ICategoryService
 {
@@ -18,7 +20,7 @@ public class CategoryService : ICategoryService
 
     public IEnumerable<CategoryDTO> GetCategories()
     {
-        IEnumerable<Category> categories = _unitOfWork.CategoryRepository.GetAll();
+        IEnumerable<Category> categories = _unitOfWork.CategoryRepository.GetAll().Where(c => !c.Excluded && c.Active);
 
         var categoriesMapped = categories.Select(p => p.MapToCategoryDTO());
 
@@ -27,6 +29,12 @@ public class CategoryService : ICategoryService
 
     public CategoryDTO CreateCategory(CategoryDTO categoryToCreate)
     {
+        categoryToCreate.Id = Guid.NewGuid();
+        categoryToCreate.CreatedAt = DateTime.Now;
+        categoryToCreate.UpdatedAt = DateTime.Now;
+        categoryToCreate.Excluded = false;
+        categoryToCreate.Active = true;
+
         Category mappedToCategory = categoryToCreate.MapToCategory();
 
         var categoryCreated = _unitOfWork.CategoryRepository.Create(mappedToCategory);
@@ -35,6 +43,22 @@ public class CategoryService : ICategoryService
 
         return categoryCreated.MapToCategoryDTO();
     }
+
+    public CategoryDTO UpdateCategoryById(string id, CategoryDTO categoryToUpdate)
+    {
+        GetAndReturnCategory(id);
+
+        categoryToUpdate.Id = Guid.Parse(id);
+        categoryToUpdate.UpdatedAt = DateTime.Now;
+        var mappedCategory = categoryToUpdate.MapToCategory();
+
+        _unitOfWork.CategoryRepository.Update(mappedCategory);
+
+        _unitOfWork.Commit();
+
+        return mappedCategory.MapToCategoryDTO();
+    }
+
 
     public CategoryDTO DeleteCategoryById(string id)
     {
@@ -47,20 +71,9 @@ public class CategoryService : ICategoryService
         return foundCategory.MapToCategoryDTO();
     }
 
-    public CategoryDTO UpdateCategoryById(string id, CategoryDTO category)
-    {
-        var foundCategory = GetAndReturnCategory(id);
-
-        _unitOfWork.CategoryRepository.Update(foundCategory);
-
-        _unitOfWork.Commit();
-
-        return foundCategory.MapToCategoryDTO();
-    }
-
     private Category? GetAndReturnCategory(string id)
     {
-        var category = _unitOfWork.CategoryRepository.Details(p => p.Id == Guid.Parse(id));
+        var category = _unitOfWork.CategoryRepository.Details(c => c.Id == Guid.Parse(id) && !c.Excluded && c.Active);
         if (category == null)
             throw new Exception($"Category with id {id} not found!");
 
