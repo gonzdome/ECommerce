@@ -7,11 +7,9 @@ public class UnitOfWork : IUnitOfWork
     private IPurchaseRepository? _purchaseRepository;
     private ICategoryRepository? _categoryRepository;
 
-    public UnitOfWork(IProductRepository? productRepository, IPurchaseRepository? purchaseRepository, ICategoryRepository categoryRepository)
+    public UnitOfWork(AppDbContext context)
     {
-        _productRepository = productRepository;
-        _purchaseRepository = purchaseRepository;
-        _categoryRepository = categoryRepository;
+        _context = context;
     }
 
     public IProductRepository ProductRepository
