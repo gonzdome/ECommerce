@@ -11,6 +11,7 @@ public static class CategoryDTOMappingExtension
         {
             Id = category.Id,
             Name = category.Name,
+            Products = category.Products,
             CreatedAt = category.CreatedAt,
             UpdatedAt = category.UpdatedAt,
             Active = category.Active,
@@ -27,6 +28,7 @@ public static class CategoryDTOMappingExtension
         {
             Id = categoryDTO.Id,
             Name = categoryDTO.Name,
+            Products = categoryDTO.Products,
             CreatedAt = categoryDTO.CreatedAt,
             UpdatedAt = categoryDTO.UpdatedAt,
             Active = categoryDTO.Active,
