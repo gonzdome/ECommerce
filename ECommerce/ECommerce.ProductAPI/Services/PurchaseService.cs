@@ -1,10 +1,10 @@
-﻿
-namespace ECommerce.ProductAPI.Services;
+﻿namespace ECommerce.ProductAPI.Services;
 
 public class PurchaseService : IPurchaseService
 {
     private readonly IUnitOfWork _unitOfWork;
-    PurchaseService(IUnitOfWork unitOfWork)
+
+    public PurchaseService(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
