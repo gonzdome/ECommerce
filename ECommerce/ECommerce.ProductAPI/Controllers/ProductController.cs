@@ -18,7 +18,7 @@ public class ProductController : ControllerBase
         return Ok(product);
     }
 
-    [HttpGet("{id:string}", Name = "GetProductDetailsById")]
+    [HttpGet("{id}", Name = "GetProductDetailsById")]
     public async Task<ActionResult<ProductDTO>> GetProductDetailsById(string id)
     {
         var product = _productService.DetailProduct(id);
@@ -33,14 +33,14 @@ public class ProductController : ControllerBase
         return Ok(product);
     }
 
-    [HttpPut("{id:string}", Name = "UpdateProductById")]
+    [HttpPut("{id}", Name = "UpdateProductById")]
     public ActionResult<ProductDTO> UpdateProductById(string id, ProductDTO productToUpdate)
     {
         var product = _productService.UpdateProductById(id, productToUpdate);
         return Ok(product);
     }
 
-    [HttpDelete("{id:string}", Name = "DeleteProductById")]
+    [HttpDelete("{id}", Name = "DeleteProductById")]
     public ActionResult<ProductDTO> DeleteProductById(string id)
     {
         var product = _productService.DeleteProductById(id);
