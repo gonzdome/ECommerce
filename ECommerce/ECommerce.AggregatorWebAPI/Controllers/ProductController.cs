@@ -12,36 +12,36 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("GetProducts")]
-    public async Task<ActionResult<IEnumerable<GetProductsViewModel>>> GetProducts()
+    public async Task<ActionResult<IEnumerable<GetProductsViewModelResponse>>> GetProducts()
     {
         var product = await _productService.GetProducts();
         return Ok(product);
     }
 
-    [HttpGet("{id}", Name = "GetProductDetailsById")]
-    public async Task<ActionResult<DetailProductViewModel>> GetProductDetailsById(string id)
+    [HttpGet("GetProductDetailsById")]
+    public async Task<ActionResult<DetailProductViewModelResponse>> GetProductDetailsById([FromQuery] string id)
     {
-        var product = await _productService.DetailProduct(id);
+        var product = await _productService.DetailProductById(id);
         return Ok(product);
     }
 
     [HttpPost]
     [Route("CreateProduct")]
-    public async Task<ActionResult<CreateProductViewModel>> CreateProduct(CreateProductViewModel productPayload)
+    public async Task<ActionResult<CreateProductViewModelResponse>> CreateProduct([FromBody] CreateProductViewModel productPayload)
     {
         var product = await _productService.CreateProduct(productPayload);
         return Ok(product);
     }
 
-    [HttpPut("{id}", Name = "UpdateProductById")]
-    public async Task<ActionResult<UpdateProductViewModel>> UpdateProductById(string id, UpdateProductViewModel productToUpdate)
+    [HttpPut("UpdateProductById")]
+    public async Task<UpdateProductViewModelResponse> UpdateProductById([FromBody] UpdateProductViewModel productToUpdate)
     {
-        var product = await _productService.UpdateProductById(id, productToUpdate);
-        return Ok(product);
+        var product = await _productService.UpdateProductById(productToUpdate);
+        return product;
     }
 
-    [HttpDelete("{id}", Name = "DeleteProductById")]
-    public async Task<ActionResult<DetailProductViewModel>> DeleteProductById(string id)
+    [HttpDelete("DeleteProductById")]
+    public async Task<ActionResult<DetailProductViewModelResponse>> DeleteProductById([FromQuery] string id)
     {
         var product = await _productService.DeleteProductById(id);
         return Ok(product);
