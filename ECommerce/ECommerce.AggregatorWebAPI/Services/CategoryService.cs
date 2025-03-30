@@ -5,15 +5,10 @@ namespace ECommerce.AggregatorWebAPI.Services;
 
 public class CategoryService : ICategoryService
 {
-    private const string apiEndpoint = "/category/";
-    private readonly IHttpClientFactory _httpClientFactory;
-    private readonly JsonSerializerOptions _options;
     private readonly IUnitOfWork _unitOfWork;
 
     public CategoryService(IHttpClientFactory httpClientFactory, IUnitOfWork unitOfWork)
     {
-        _httpClientFactory = httpClientFactory;
-        _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         _unitOfWork = unitOfWork;
     }
 

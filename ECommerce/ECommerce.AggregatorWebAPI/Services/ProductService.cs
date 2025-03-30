@@ -4,15 +4,10 @@ namespace ECommerce.AggregatorWebAPI.Services;
 
 public class ProductService : IProductService
 {
-    private readonly IHttpClientFactory _httpClientFactory;
-    private const string apiEndpoint = "/product/";
-    private readonly JsonSerializerOptions _options;
     private readonly IUnitOfWork _unitOfWork;
 
     public ProductService(IHttpClientFactory httpClientFactory, IUnitOfWork unitOfWork)
     {
-        _httpClientFactory = httpClientFactory;
-        _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         _unitOfWork = unitOfWork;
     }
 
