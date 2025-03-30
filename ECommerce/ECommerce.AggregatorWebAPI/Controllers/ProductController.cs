@@ -34,10 +34,10 @@ public class ProductController : ControllerBase
     }
 
     [HttpPut("UpdateProductById")]
-    public async Task<UpdateProductViewModelResponse> UpdateProductById([FromBody] UpdateProductViewModel productToUpdate)
+    public async Task<ActionResult<UpdateProductViewModelResponse>> UpdateProductById([FromBody] UpdateProductViewModel productToUpdate)
     {
         var product = await _productService.UpdateProductById(productToUpdate);
-        return product;
+        return Ok(product);
     }
 
     [HttpDelete("DeleteProductById")]
