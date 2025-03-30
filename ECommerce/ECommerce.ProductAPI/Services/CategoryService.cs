@@ -44,11 +44,10 @@ public class CategoryService : ICategoryService
         return categoryCreated.MapToCategoryDTO();
     }
 
-    public async Task<CategoryDTO> UpdateCategoryById(string id, CategoryDTO categoryToUpdate)
+    public async Task<CategoryDTO> UpdateCategoryById(CategoryDTO categoryToUpdate)
     {
-        await GetAndReturnCategory(id);
+        await GetAndReturnCategory(categoryToUpdate.Id.ToString());
 
-        categoryToUpdate.Id = Guid.Parse(id);
         categoryToUpdate.UpdatedAt = DateTime.Now;
         var mappedCategory = categoryToUpdate.MapToCategory();
 
@@ -64,7 +63,9 @@ public class CategoryService : ICategoryService
     {
         var foundCategory = await GetAndReturnCategory(id);
 
-        await _unitOfWork.CategoryRepository.Delete(foundCategory);
+        foundCategory.Excluded = true;
+
+        await _unitOfWork.CategoryRepository.Update(foundCategory);
 
         await _unitOfWork.Commit();
 
