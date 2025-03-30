@@ -5,38 +5,45 @@ namespace ECommerce.AggregatorWebAPI.Services;
 
 public class CategoryService : ICategoryService
 {
-    private readonly IHttpClientFactory _httpClientFactory;
     private const string apiEndpoint = "/category/";
+    private readonly IHttpClientFactory _httpClientFactory;
     private readonly JsonSerializerOptions _options;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CategoryService(IHttpClientFactory httpClientFactory)
+    public CategoryService(IHttpClientFactory httpClientFactory, IUnitOfWork unitOfWork)
     {
         _httpClientFactory = httpClientFactory;
         _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        _unitOfWork = unitOfWork;
     }
 
-    public async Task<IEnumerable<GetCategoriesViewModel>> GetCategories()
+    public async Task<GetCategoriesViewModelResponse> GetCategories()
     {
-        throw new NotImplementedException();
+        var response = await _unitOfWork.ProductAPICategoriesService.ProductAPIGetCategories();
+        return response;
     }
 
-    public async Task<DetailCategoryViewModel> DetailCategoryById(string id)
+    public async Task<DetailCategoryViewModelResponse> DetailCategoryById(string id)
     {
-        throw new NotImplementedException();
+        var response = await _unitOfWork.ProductAPICategoriesService.ProductAPIDetailCategoryById(id);
+        return response;
     }
 
-    public async Task<CreateCategoryViewModel> CreateCategory(CreateCategoryViewModel product)
+    public async Task<CreateCategoryViewModelResponse> CreateCategory(CreateCategoryViewModel product)
     {
-        throw new NotImplementedException();
+        var response = await _unitOfWork.ProductAPICategoriesService.ProductAPICreateCategory(product);
+        return response;
     }
 
-    public async Task<UpdateCategoryViewModel> UpdateCategoryById(string id, UpdateCategoryViewModel product)
+    public async Task<UpdateCategoryViewModelResponse> UpdateCategoryById(UpdateCategoryViewModel product)
     {
-        throw new NotImplementedException();
+        var response = await _unitOfWork.ProductAPICategoriesService.ProductAPIUpdateCategoryById(product);
+        return response;
     }
 
-    public async Task<DetailCategoryViewModel> DeleteCategoryById(string id)
+    public async Task<DetailCategoryViewModelResponse> DeleteCategoryById(string id)
     {
-        throw new NotImplementedException();
+        var response = await _unitOfWork.ProductAPICategoriesService.ProductAPIDeleteCategoryById(id);
+        return response;
     }
 }
