@@ -2,9 +2,9 @@
 
 public interface IProductService
 {
-    public Task<IEnumerable<GetProductsViewModel>> GetProducts();
-    public Task<DetailProductViewModel> DetailProduct(string id);
-    public Task<CreateProductViewModel> CreateProduct(CreateProductViewModel product);
-    public Task<UpdateProductViewModel> UpdateProductById(string id, UpdateProductViewModel product);
-    public Task<DetailProductViewModel> DeleteProductById(string id);
+    Task<GetProductsViewModelResponse> GetProducts();
+    Task<DetailProductViewModelResponse> DetailProductById(string id);
+    Task<CreateProductViewModelResponse> CreateProduct(CreateProductViewModel product);
+    Task<UpdateProductViewModelResponse> UpdateProductById(UpdateProductViewModel product);
+    Task<DetailProductViewModelResponse> DeleteProductById(string id);
 }

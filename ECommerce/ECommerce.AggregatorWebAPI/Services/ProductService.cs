@@ -7,37 +7,42 @@ public class ProductService : IProductService
     private readonly IHttpClientFactory _httpClientFactory;
     private const string apiEndpoint = "/product/";
     private readonly JsonSerializerOptions _options;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ProductService(IHttpClientFactory httpClientFactory)
+    public ProductService(IHttpClientFactory httpClientFactory, IUnitOfWork unitOfWork)
     {
         _httpClientFactory = httpClientFactory;
         _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        _unitOfWork = unitOfWork;
     }
 
-    public async Task<CreateProductViewModel> CreateProduct(CreateProductViewModel productToCreate)
+    public async Task<GetProductsViewModelResponse> GetProducts()
     {
-
-
-        return new CreateProductViewModel() { };
+        var response = await _unitOfWork.ProductAPIProductsService.ProductAPIGetProducts();
+        return response;
     }
 
-    public async Task<IEnumerable<GetProductsViewModel>> GetProducts()
+    public async Task<DetailProductViewModelResponse> DetailProductById(string id)
     {
-        throw new NotImplementedException();
+        var response = await _unitOfWork.ProductAPIProductsService.ProductAPIDetailProductById(id);
+        return response;
     }
 
-    public async Task<DetailProductViewModel> DetailProduct(string id)
+    public async Task<CreateProductViewModelResponse> CreateProduct(CreateProductViewModel product)
     {
-        throw new NotImplementedException();
+        var response = await _unitOfWork.ProductAPIProductsService.ProductAPICreateProduct(product);
+        return response;
     }
 
-    public async Task<UpdateProductViewModel> UpdateProductById(string id, UpdateProductViewModel product)
+    public async Task<UpdateProductViewModelResponse> UpdateProductById(UpdateProductViewModel product)
     {
-        throw new NotImplementedException();
+        var response = await _unitOfWork.ProductAPIProductsService.ProductAPIUpdateProductById(product);
+        return response;
     }
 
-    public async Task<DetailProductViewModel> DeleteProductById(string id)
+    public async Task<DetailProductViewModelResponse> DeleteProductById(string id)
     {
-        throw new NotImplementedException();
+        var response = await _unitOfWork.ProductAPIProductsService.ProductAPIDeleteProductById(id);
+        return response;
     }
 }
