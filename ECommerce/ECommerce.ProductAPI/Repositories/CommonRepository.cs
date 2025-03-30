@@ -18,7 +18,7 @@ public class CommonRepository<T> : ICommonRepository<T> where T : class
 
     public async Task<T?> Details(Expression<Func<T, bool>> predicate)
     {
-        return _context.Set<T>().FirstOrDefault(predicate);
+        return _context.Set<T>().AsNoTracking().FirstOrDefault(predicate);
     }
 
     public async Task<T> Create(T entity)
