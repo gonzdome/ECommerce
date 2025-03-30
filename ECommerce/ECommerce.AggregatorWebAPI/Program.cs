@@ -10,6 +10,14 @@ builder.Services.AddHttpClient("ProductAPI", c => { c.BaseAddress = new Uri(buil
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProductAPIProductsService, ProductAPIProductsService>();
+builder.Services.AddScoped<IProductAPICategoriesService, ProductAPICategoriesService>();
+builder.Services.AddScoped<APIClient>();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
