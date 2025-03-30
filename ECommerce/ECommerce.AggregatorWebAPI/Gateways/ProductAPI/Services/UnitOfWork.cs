@@ -1,5 +1,6 @@
 ﻿using ECommerce.AggregatorWebAPI.Gateways.ProductAPI.Services.Interfaces;
 using ECommerce.APIHandler;
+using System.Text.Json;
 
 namespace ECommerce.AggregatorWebAPI.Gateways.ProductAPI.Services
 {
@@ -8,10 +9,13 @@ namespace ECommerce.AggregatorWebAPI.Gateways.ProductAPI.Services
         private readonly APIClient _apiClient;
         private IProductAPIProductsService? _productAPIProductsService;
         private IProductAPICategoriesService? _productAPICategoriesService;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly JsonSerializerOptions _options;
 
-        public UnitOfWork(IServiceScopeFactory scoppedFactory, APIClient apiClient)
+        public UnitOfWork(IHttpClientFactory httpClientFactory, APIClient apiClient)
         {
-            _apiClient = apiClient;
+            _httpClientFactory = httpClientFactory;
+            _apiClient = new APIClient(_httpClientFactory);
         }
 
         public IProductAPIProductsService ProductAPIProductsService
