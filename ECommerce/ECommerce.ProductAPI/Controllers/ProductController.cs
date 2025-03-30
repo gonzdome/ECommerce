@@ -14,37 +14,71 @@ public class ProductController : ControllerBase
     [HttpGet("GetProducts")]
     public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProducts()
     {
-        var product = _productService.GetProducts();
-        return Ok(product);
+        try
+        {
+            var product = await _productService.GetProducts();
+            return Ok(product);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
-    [HttpGet("{id}", Name = "GetProductDetailsById")]
-    public async Task<ActionResult<ProductDTO>> GetProductDetailsById(string id)
+    [HttpGet("GetProductDetailsById")]
+    public async Task<ActionResult<ProductDTO>> GetProductDetailsById([FromQuery] string id)
     {
-        var product = _productService.DetailProductById(id);
-        return Ok(product);
+        try
+        {
+            var product = await _productService.DetailProductById(id);
+            return Ok(product);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
     [HttpPost]
     [Route("CreateProduct")]
     public async Task<ActionResult<ProductDTO>> CreateProduct(ProductDTO productPayload)
     {
-        var product = _productService.CreateProduct(productPayload);
-        return Ok(product);
+        try
+        {
+            var product = await _productService.CreateProduct(productPayload);
+            return Ok(product);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
-    [HttpPut("{id}", Name = "UpdateProductById")]
-    public async Task<ActionResult<ProductDTO>> UpdateProductById(string id, ProductDTO productToUpdate)
+    [HttpPut("UpdateProductById")]
+    public async Task<ActionResult<ProductDTO>> UpdateProductById(ProductDTO productToUpdate)
     {
-        var product = _productService.UpdateProductById(id, productToUpdate);
-        return Ok(product);
+        try
+        {
+            var product = await _productService.UpdateProductById(productToUpdate);
+            return product;
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
-    [HttpDelete("{id}", Name = "DeleteProductById")]
-    public async Task<ActionResult<ProductDTO>> DeleteProductById(string id)
+    [HttpDelete("DeleteProductById")]
+    public async Task<ActionResult<ProductDTO>> DeleteProductById([FromQuery] string id)
     {
-        var product = _productService.DeleteProductById(id);
-        return Ok(product);
+        try
+        {
+            var product = await _productService.DeleteProductById(id);
+            return Ok(product);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
-
 }
