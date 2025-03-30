@@ -21,6 +21,6 @@ public class ProductDTO
 
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
-    public bool Active { get; set; }
-    public bool Excluded { get; set; }
+    public bool Active { get; set; } = true;
+    public bool Excluded { get; set; } = false;
 }
