@@ -12,39 +12,74 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet("GetCategories")]
-    public async Task<ActionResult<IEnumerable<GetCategoriesViewModel>>> GetCategories()
+    public async Task<ActionResult<IEnumerable<GetCategoriesViewModelResponse>>> GetCategories()
     {
-        var category = await _categoryService.GetCategories();
-        return Ok(category);
+        try
+        {
+            var category = await _categoryService.GetCategories();
+            return Ok(category);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
-    [HttpGet("{id}", Name = "CategoryDetailsById")]
-    public async Task<ActionResult<DetailCategoryViewModel>> CategoryDetailsById(string id)
+    [HttpGet("GetCategoryDetailsById")]
+    public async Task<ActionResult<DetailCategoryViewModelResponse>> GetCategoryDetailsById([FromQuery] string id)
     {
-        var category = await _categoryService.DetailCategoryById(id);
-        return Ok(category);
+        try
+        {
+            var category = await _categoryService.DetailCategoryById(id);
+            return Ok(category);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
     [HttpPost]
     [Route("CreateCategory")]
-    public async Task<ActionResult<CreateCategoryViewModel>> CreateCategory(CreateCategoryViewModel categoryPayload)
+    public async Task<ActionResult<CreateCategoryViewModelResponse>> CreateCategory([FromBody] CreateCategoryViewModel categoryPayload)
     {
-        var category = await _categoryService.CreateCategory(categoryPayload);
-        return Ok(category);
+        try
+        {
+            var category = await _categoryService.CreateCategory(categoryPayload);
+            return Ok(category);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
-    [HttpPut("{id}", Name = "UpdateCategoryById")]
-    public async Task<ActionResult<UpdateCategoryViewModel>> UpdateCategoryById(string id, UpdateCategoryViewModel categoryToUpdate)
+    [HttpPut("UpdateCategoryById")]
+    public async Task<ActionResult<UpdateCategoryViewModelResponse>> UpdateCategoryById([FromBody] UpdateCategoryViewModel categoryToUpdate)
     {
-        var category = await _categoryService.UpdateCategoryById(id, categoryToUpdate);
-        return Ok(category);
+        try
+        {
+            var category = await _categoryService.UpdateCategoryById(categoryToUpdate);
+            return Ok(category);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
-    [HttpDelete("{id}", Name = "DeleteCategoryById")]
-    public async Task<ActionResult<DetailCategoryViewModel>> DeleteCategoryById(string id)
+    [HttpDelete("DeleteCategoryById")]
+    public async Task<ActionResult<DetailCategoryViewModelResponse>> DeleteCategoryById([FromQuery] string id)
     {
-        var category = await _categoryService.DeleteCategoryById(id);
-        return Ok(category);
+        try
+        {
+            var category = await _categoryService.DeleteCategoryById(id);
+            return Ok(category);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
 }
