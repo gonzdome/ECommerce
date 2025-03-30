@@ -16,8 +16,8 @@ public class CategoryController : ControllerBase
     {
         try
         {
-            var category = _categoryService.GetCategories();
-            return Ok(category.Result);
+            var category = await _categoryService.GetCategories();
+            return Ok(category);
         }
         catch (Exception e)
         {
@@ -30,8 +30,8 @@ public class CategoryController : ControllerBase
     {
         try
         {
-            var category = _categoryService.DetailCategoryById(id);
-            return Ok(category.Result);
+            var category = await _categoryService.DetailCategoryById(id);
+            return Ok(category);
         }
         catch (Exception e)
         {
@@ -45,8 +45,8 @@ public class CategoryController : ControllerBase
     {
         try
         {
-            var category = _categoryService.CreateCategory(categoryPayload);
-            return Ok(category.Result);
+            var category = await _categoryService.CreateCategory(categoryPayload);
+            return Ok(category);
         }
         catch (Exception e)
         {
@@ -59,8 +59,8 @@ public class CategoryController : ControllerBase
     {
         try
         {
-            var category = _categoryService.UpdateCategoryById(categoryToUpdate);
-            return Ok(category.Result);
+            var category = await _categoryService.UpdateCategoryById(categoryToUpdate);
+            return Ok(category);
         }
         catch (Exception e)
         {
@@ -73,8 +73,8 @@ public class CategoryController : ControllerBase
     {
         try
         {
-            var category = _categoryService.DeleteCategoryById(id);
-            return Ok(category.Result);
+            var category = await _categoryService.DeleteCategoryById(id);
+            return Ok(category);
         }
         catch (Exception e)
         {
