@@ -14,37 +14,72 @@ public class CategoryController : ControllerBase
     [HttpGet("GetCategories")]
     public async Task<ActionResult<IEnumerable<CategoryDTO>>> GetCategories()
     {
-        var category = _categoryService.GetCategories();
-        return Ok(category);
+        try
+        {
+            var category = _categoryService.GetCategories();
+            return Ok(category.Result);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
-    [HttpGet("{id}", Name = "CategoryDetailsById")]
-    public async Task<ActionResult<CategoryDTO>> CategoryDetailsById(string id)
+    [HttpGet("GetCategoryDetailsById")]
+    public async Task<ActionResult<CategoryDTO>> GetCategoryDetailsById([FromQuery] string id)
     {
-        var category = _categoryService.DetailCategoryById(id);
-        return Ok(category);
+        try
+        {
+            var category = _categoryService.DetailCategoryById(id);
+            return Ok(category.Result);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
     [HttpPost]
     [Route("CreateCategory")]
     public async Task<ActionResult<CategoryDTO>> CreateCategory(CategoryDTO categoryPayload)
     {
-        var category = _categoryService.CreateCategory(categoryPayload);
-        return Ok(category);
+        try
+        {
+            var category = _categoryService.CreateCategory(categoryPayload);
+            return Ok(category.Result);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
-    [HttpPut("{id}", Name = "UpdateCategoryById")]
-    public async Task<ActionResult<CategoryDTO>> UpdateCategoryById(string id, CategoryDTO categoryToUpdate)
+    [HttpPut("UpdateCategoryById")]
+    public async Task<ActionResult<CategoryDTO>> UpdateCategoryById(CategoryDTO categoryToUpdate)
     {
-        var category = _categoryService.UpdateCategoryById(id, categoryToUpdate);
-        return Ok(category);
+        try
+        {
+            var category = _categoryService.UpdateCategoryById(categoryToUpdate);
+            return Ok(category.Result);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
-    [HttpDelete("{id}", Name = "DeleteCategoryById")]
-    public async Task<ActionResult<CategoryDTO>> DeleteCategoryById(string id)
+    [HttpDelete("DeleteCategoryById")]
+    public async Task<ActionResult<CategoryDTO>> DeleteCategoryById([FromQuery] string id)
     {
-        var category = _categoryService.DeleteCategoryById(id);
-        return Ok(category);
+        try
+        {
+            var category = _categoryService.DeleteCategoryById(id);
+            return Ok(category.Result);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
 }
