@@ -4,7 +4,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddHttpClient("ProductAPI", c => { c.BaseAddress = new Uri(builder.Configuration["ServiceUri:ProductAPI"]); });
+builder.Services.AddHttpClient("ProductAPI", c => { c.BaseAddress = new Uri(builder.Configuration["ServiceUri:ProductAPI:ProductAPIUri"]); });
+builder.Services.AddHttpClient("IntegrationAPI", c => { c.BaseAddress = new Uri(builder.Configuration["ServiceUri:IntegrationAPI:IntegrationAPIUri"]); });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
