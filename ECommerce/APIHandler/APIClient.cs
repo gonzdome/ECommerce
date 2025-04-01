@@ -15,14 +15,9 @@ public class APIClient
         _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     }
 
-    public async Task<ApiResponseViewModel> Handle(string method, string apiName, string apiEndpoint, object? data = null)
+    public async Task<ApiResponseViewModel> Handle(string method, string apiName, string apiEndpoint, object? data = null, object? headers = null)
     {
-        StringContent? content = null;
-        if (data != null && (method.ToUpper() == "POST" || method.ToUpper() == "PUT"))
-            content = new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
-
-        var client = _httpClientFactory.CreateClient(apiName);
-        using var response = await GetHTTPMethod(method, apiEndpoint, client, content);
+        HttpResponseMessage response = await CreateHTTPClient(method, apiEndpoint, data, headers);
 
         var apiResponse = new ApiResponseViewModel();
         apiResponse.Success = response.IsSuccessStatusCode;
@@ -33,16 +28,41 @@ public class APIClient
         return apiResponse;
     }
 
-    private static Task<HttpResponseMessage> GetHTTPMethod(string method, string apiEndpoint, HttpClient client, StringContent? content)
+    private async Task<HttpResponseMessage> CreateHTTPClient(string method, string apiEndpoint, object? data, object? headers)
+    {
+        var httpRequestMessage = new HttpRequestMessage();
+        httpRequestMessage.RequestUri = new Uri(apiEndpoint);
+        httpRequestMessage.Method = await HandleHTTPMethod(method);
+
+        if (headers != null)
+            SetHeaders(headers, httpRequestMessage);
+
+        if (data != null && (method.ToUpper() == "POST" || method.ToUpper() == "PUT"))
+            httpRequestMessage.Content = new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
+
+        var response = await _httpClientFactory.CreateClient().SendAsync(httpRequestMessage);
+        return response;
+    }
+
+    private async Task<HttpMethod> HandleHTTPMethod(string method)
     {
         return method.ToUpper() switch
         {
-            "GET" => client.GetAsync(apiEndpoint),
-            "POST" => client.PostAsync(apiEndpoint, content),
-            "PUT" => client.PutAsync(apiEndpoint, content),
-            "DELETE" => client.DeleteAsync(apiEndpoint),
+            "GET" => HttpMethod.Get,
+            "POST" => HttpMethod.Post,
+            "PUT" => HttpMethod.Put,
+            "DELETE" => HttpMethod.Delete,
             _ => throw new ArgumentException("Método HTTP inválido. Use GET, POST, PUT ou DELETE.")
         };
+    }
+
+    private static void SetHeaders(object? headers, HttpRequestMessage httpRequestMessage)
+    {
+        //foreach (var item in headers)
+            httpRequestMessage.Headers.Add(
+                headers.GetType().GetProperty("HeaderProperty").GetValue(headers, null).ToString(),
+                headers.GetType().GetProperty("HeaderValue").GetValue(headers, null).ToString()
+            );
     }
 
     private string handleError(string method)
