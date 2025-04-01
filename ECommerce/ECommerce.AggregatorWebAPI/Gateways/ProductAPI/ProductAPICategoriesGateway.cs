@@ -5,7 +5,7 @@ namespace ECommerce.AggregatorWebAPI.Gateways.ProductAPI;
 public class ProductAPICategoriesGateway
 {
     private readonly APIClient _apiClient;
-    private const string apiEndpoint = "/Category";
+    private const string apiEndpoint = "https://localhost:7174/Category";
 
     public ProductAPICategoriesGateway(APIClient apiClient)
     {
@@ -14,7 +14,7 @@ public class ProductAPICategoriesGateway
 
     protected internal async Task<DetailCategoryViewModelResponse> DetailCategoryById(string id)
     {
-        var apiResponse = await _apiClient.Handle("GET", "ProductAPI", $"{apiEndpoint}/GetCategoryDetailsById?id={id}");
+       var apiResponse = await _apiClient.Handle("GET", "ProductAPI", $"{apiEndpoint}/GetCategoryDetailsById?id={id}");
 
         var response = new DetailCategoryViewModelResponse() { Success = apiResponse.Success, Code = apiResponse.Code, Message = apiResponse.Message };
         if (apiResponse.Success == false) return response;

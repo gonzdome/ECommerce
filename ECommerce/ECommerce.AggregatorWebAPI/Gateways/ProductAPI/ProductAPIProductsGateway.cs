@@ -3,7 +3,7 @@
 public class ProductAPIProductsGateway
 {
     private readonly APIClient _apiClient;
-    private const string apiEndpoint = "/Product";
+    private const string apiEndpoint = "https://localhost:7174/Product";
 
     public ProductAPIProductsGateway(APIClient apiClient)
     {
