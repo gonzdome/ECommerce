@@ -6,11 +6,11 @@ namespace ECommerce.AggregatorWebAPI.Controllers;
 [Route("[controller]")]
 public class IntegrationController : ControllerBase
 {
-    private readonly IIntegrationService _categoryService;
+    private readonly IIntegrationService _integrationService;
 
     public IntegrationController(IIntegrationService categoryService)
     {
-        _categoryService = categoryService;
+        _integrationService = categoryService;
     }
 
     [HttpPost]
@@ -19,7 +19,7 @@ public class IntegrationController : ControllerBase
     {
         try
         {
-            var category = await _categoryService.SendPurchase(categoryPayload);
+            var category = await _integrationService.SendPurchase(categoryPayload);
             return Ok(category);
         }
         catch (Exception e)
