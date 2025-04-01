@@ -8,6 +8,7 @@ public class IntegrationService : IIntegrationService
     {
         _unitOfWork = unitOfWork;
     }
+
     public async Task<SendPurchaseViewModelResponse> SendPurchase(SendPurchaseViewModel request)
     {
         var result = await _unitOfWork.IntegrationAPIService.IntegrationAPISendPurchase(request);
