@@ -4,7 +4,6 @@ public class UnitOfWork : IUnitOfWork
 {
     public AppDbContext _context;
     private IProductRepository? _productRepository;
-    private IPurchaseRepository? _purchaseRepository;
     private ICategoryRepository? _categoryRepository;
 
     public UnitOfWork(AppDbContext context)
@@ -20,11 +19,6 @@ public class UnitOfWork : IUnitOfWork
     public ICategoryRepository CategoryRepository
     {
         get { return _categoryRepository = _categoryRepository ?? new CategoryRepository(_context); }
-    }
-
-    public IPurchaseRepository PurchaseRepository
-    {
-        get { return _purchaseRepository = _purchaseRepository ?? new PurchaseRepository(_context); }
     }
 
     public async Task Commit()
