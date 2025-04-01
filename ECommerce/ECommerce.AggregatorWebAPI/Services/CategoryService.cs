@@ -1,5 +1,4 @@
-﻿using ECommerce.AggregatorWebAPI.Models.ViewModels;
-using System.Text.Json;
+﻿using ECommerce.AggregatorWebAPI.Gateways.Services.Interfaces;
 
 namespace ECommerce.AggregatorWebAPI.Services;
 
@@ -7,7 +6,7 @@ public class CategoryService : ICategoryService
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public CategoryService(IHttpClientFactory httpClientFactory, IUnitOfWork unitOfWork)
+    public CategoryService(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }

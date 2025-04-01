@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+﻿using ECommerce.AggregatorWebAPI.Gateways.Services.Interfaces;
 
 namespace ECommerce.AggregatorWebAPI.Services;
 
@@ -6,7 +6,7 @@ public class ProductService : IProductService
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public ProductService(IHttpClientFactory httpClientFactory, IUnitOfWork unitOfWork)
+    public ProductService(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
