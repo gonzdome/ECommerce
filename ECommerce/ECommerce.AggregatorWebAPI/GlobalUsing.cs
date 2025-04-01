@@ -14,12 +14,11 @@ global using ECommerce.AggregatorWebAPI.Gateways.ProductAPI.Models.ViewModels.Ca
 
 global using ECommerce.AggregatorWebAPI.Gateways.IntegrationAPI.Models.ViewModels;
 
+global using ECommerce.AggregatorWebAPI.Gateways.Services;
 global using ECommerce.AggregatorWebAPI.Gateways.Services.Interfaces;
 
 global using ECommerce.AggregatorWebAPI.Gateways.ProductAPI.Services;
 global using ECommerce.AggregatorWebAPI.Gateways.ProductAPI.Services.Interfaces;
-
-global using ECommerce.AggregatorWebAPI.Gateways.IntegrationAPI.Services;
 global using ECommerce.AggregatorWebAPI.Gateways.IntegrationAPI.Services.Interfaces;
 
 
