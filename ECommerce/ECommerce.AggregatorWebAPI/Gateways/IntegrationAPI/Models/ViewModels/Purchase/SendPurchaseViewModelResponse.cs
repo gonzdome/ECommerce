@@ -1,4 +1,4 @@
-﻿namespace ECommerce.AggregatorWebAPI.Gateways.IntegrationAPI.Models.ViewModels;
+﻿namespace ECommerce.AggregatorWebAPI.Gateways.IntegrationAPI.Models.ViewModels.Purchase;
 
 public class SendPurchaseViewModelResponse
 {
