@@ -13,8 +13,15 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IIntegrationService, IntegrationService>();
+builder.Services.AddScoped<IPurchaseService, PurchaseService>();
+
 builder.Services.AddScoped<IProductAPIProductsService, ProductAPIProductsService>();
 builder.Services.AddScoped<IProductAPICategoriesService, ProductAPICategoriesService>();
+
+builder.Services.AddScoped<IIntegrationAPIIntegrationService, IntegrationAPIIntegrationService>();
+builder.Services.AddScoped<IIntegrationAPIPurchaseService, IntegrationAPIPurchaseService>();
+
 builder.Services.AddScoped<APIClient>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
