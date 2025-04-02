@@ -4,18 +4,23 @@ namespace ECommerce.IntegrationAPI.Controllers;
 [Route("[controller]")]
 public class PurchaseController : ControllerBase
 {
+    private readonly IIntegrationService _integrationService;
     private readonly IPurchaseService _purchaseService;
 
-    public PurchaseController(IPurchaseService purchaseService)
+    public PurchaseController(IIntegrationService integrationService, IPurchaseService purchaseService)
     {
         _purchaseService = purchaseService;
+        _integrationService = integrationService;
     }
 
-    [HttpGet("SendPurchase")]
+    [HttpPost("SendPurchase")]
     public async Task<ActionResult<PurchaseAPIPostResponse>> SendPurchase(PurchaseAPIPostRequest purchaseAPIPostRequest)
     {
         try
         {
+            var integrationDetailsByFlow = await _integrationService.DetailIntegrationByFlow("Purchase");
+            purchaseAPIPostRequest.ApiUri = integrationDetailsByFlow.Uri;
+
             var purchaseResponse = await _purchaseService.Purchase(purchaseAPIPostRequest);
             return Ok(purchaseResponse);
         }
