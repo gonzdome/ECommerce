@@ -29,6 +29,9 @@ public class ProductService : IProductService
     {
         Product mappedToProduct = productToCreate.MapToProduct();
 
+        mappedToProduct.CreatedAt = DateTime.Now;
+        mappedToProduct.UpdatedAt = DateTime.Now;
+
         var productCreated = await _unitOfWork.ProductRepository.Create(mappedToProduct);
         await _unitOfWork.Commit();
 

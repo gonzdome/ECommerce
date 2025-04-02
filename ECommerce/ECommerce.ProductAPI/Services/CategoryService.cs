@@ -29,13 +29,10 @@ public class CategoryService : ICategoryService
 
     public async Task<CategoryDTO> CreateCategory(CategoryDTO categoryToCreate)
     {
-        categoryToCreate.Id = Guid.NewGuid();
-        categoryToCreate.CreatedAt = DateTime.Now;
-        categoryToCreate.UpdatedAt = DateTime.Now;
-        categoryToCreate.Excluded = false;
-        categoryToCreate.Active = true;
-
         Category mappedToCategory = categoryToCreate.MapToCategory();
+
+        mappedToCategory.CreatedAt = DateTime.Now;
+        mappedToCategory.UpdatedAt = DateTime.Now;
 
         var categoryCreated = await _unitOfWork.CategoryRepository.Create(mappedToCategory);
 
