@@ -1,5 +1,4 @@
-﻿
-namespace ECommerce.ProductAPI.Repositories;
+﻿namespace ECommerce.ProductAPI.Repositories;
 
 public class ProductRepository : CommonRepository<Product>, IProductRepository
 {
