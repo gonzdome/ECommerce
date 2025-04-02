@@ -1,6 +1,4 @@
-﻿using ECommerce.IntegrationAPI.Gateways.PurchaseAPI.Models.ViewModels.Purchase;
-
-namespace ECommerce.IntegrationAPI.Gateways.PurchaseAPI.Services;
+﻿namespace ECommerce.IntegrationAPI.Gateways.PurchaseAPI.Services;
 
 public class PurchaseAPIService : PurchaseAPIGateway, IPurchaseAPIService
 {
