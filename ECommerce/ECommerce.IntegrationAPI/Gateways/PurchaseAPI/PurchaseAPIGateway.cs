@@ -1,9 +1,10 @@
-﻿namespace ECommerce.IntegrationAPI.Gateways.PurchaseAPI;
+﻿using static ECommerce.IntegrationAPI.Gateways.PurchaseAPI.Models.ViewModels.Purchase.PurchaseAPIPostResponse;
+
+namespace ECommerce.IntegrationAPI.Gateways.PurchaseAPI;
 
 public class PurchaseAPIGateway
 {
     private readonly APIClient _apiClient;
-    private const string apiEndpoint = "";
 
     public PurchaseAPIGateway(APIClient apiClient)
     {
@@ -15,12 +16,12 @@ public class PurchaseAPIGateway
         var purchaseHeaders = new List<ApiHeadersViewModel>();
         purchaseHeaders.Add(new ApiHeadersViewModel() { HeaderProperty = "email", HeaderValue = "email@hotmail.com" });
 
-        var apiResponse = await _apiClient.Handle("POST", "Test", $"{apiEndpoint}", purchaseAPIPostRequest, purchaseHeaders);
+        var apiResponse = await _apiClient.Handle("POST", "Test", $"{purchaseAPIPostRequest.ApiUri}", purchaseAPIPostRequest, purchaseHeaders);
 
         var response = new PurchaseAPIPostResponse() { Success = apiResponse.Success, Code = apiResponse.Code, Message = apiResponse.Message };
         if (apiResponse.Success == false) return response;
 
-        response.Data = JsonConvert.DeserializeObject<PurchaseAPIPostResponse>(apiResponse.Data);
+        response.Data = JsonConvert.DeserializeObject<PurchaseResponse>(apiResponse.Data);
         return response;
     }
 }
