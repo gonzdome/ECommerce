@@ -1,4 +1,4 @@
-﻿namespace ECommerce.IntegrationAPI.Gateways.Models.ViewModels;
+﻿namespace APIHandler.Models.ViewModels;
 
 public class ApiHeadersViewModel
 {

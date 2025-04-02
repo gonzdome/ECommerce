@@ -1,6 +1,4 @@
-﻿using static ECommerce.IntegrationAPI.Gateways.PurchaseAPI.Models.ViewModels.Purchase.PurchaseAPIPostResponse;
-
-namespace ECommerce.IntegrationAPI.Gateways.PurchaseAPI;
+﻿namespace ECommerce.IntegrationAPI.Gateways.PurchaseAPI;
 
 public class PurchaseAPIGateway
 {
@@ -21,7 +19,7 @@ public class PurchaseAPIGateway
         var response = new PurchaseAPIPostResponse() { Success = apiResponse.Success, Code = apiResponse.Code, Message = apiResponse.Message };
         if (apiResponse.Success == false) return response;
 
-        response.Data = JsonConvert.DeserializeObject<PurchaseResponse>(apiResponse.Data);
+        response.Data = JsonConvert.DeserializeObject<PurchaseAPIPostResponse.PurchaseResponse>(apiResponse.Data);
         return response;
     }
 }

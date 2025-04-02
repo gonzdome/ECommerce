@@ -15,7 +15,7 @@ public class APIClient
         _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     }
 
-    public async Task<ApiResponseViewModel> Handle(string method, string apiName, string apiEndpoint, object? data = null, object? headers = null)
+    public async Task<ApiResponseViewModel> Handle(string method, string apiName, string apiEndpoint, object? data = null, List<ApiHeadersViewModel>? headers = null)
     {
         HttpResponseMessage response = await CreateHTTPClient(method, apiEndpoint, data, headers);
 
@@ -28,7 +28,7 @@ public class APIClient
         return apiResponse;
     }
 
-    private async Task<HttpResponseMessage> CreateHTTPClient(string method, string apiEndpoint, object? data, object? headers)
+    private async Task<HttpResponseMessage> CreateHTTPClient(string method, string apiEndpoint, object? data, List<ApiHeadersViewModel>? headers = null)
     {
         var httpRequestMessage = new HttpRequestMessage();
         httpRequestMessage.RequestUri = new Uri(apiEndpoint);
@@ -56,13 +56,10 @@ public class APIClient
         };
     }
 
-    private static void SetHeaders(object? headers, HttpRequestMessage httpRequestMessage)
+    private static void SetHeaders(List<ApiHeadersViewModel>? headers, HttpRequestMessage httpRequestMessage)
     {
-        //foreach (var item in headers)
-            httpRequestMessage.Headers.Add(
-                headers.GetType().GetProperty("HeaderProperty").GetValue(headers, null).ToString(),
-                headers.GetType().GetProperty("HeaderValue").GetValue(headers, null).ToString()
-            );
+        foreach (var item in headers)
+            httpRequestMessage.Headers.Add(item.HeaderProperty, item.HeaderValue);
     }
 
     private string handleError(string method)

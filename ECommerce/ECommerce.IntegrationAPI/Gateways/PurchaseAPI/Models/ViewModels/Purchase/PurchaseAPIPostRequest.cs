@@ -2,7 +2,7 @@
 
 public class PurchaseAPIPostRequest
 {
-    public string ApiUri { get; set; }
+    public string ApiUri { get; set; } = string.Empty;
     public string identificador { get; set; }
     public string dataVenda { get; set; }
     public Customer cliente { get; set; }

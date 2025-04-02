@@ -16,7 +16,6 @@ global using ECommerce.IntegrationAPI.Services.Interfaces;
 global using ECommerce.IntegrationAPI.Repositories;
 global using ECommerce.IntegrationAPI.Repositories.Interfaces;
 
-global using ECommerce.IntegrationAPI.Gateways.Models.ViewModels;
 global using ECommerce.IntegrationAPI.Gateways.PurchaseAPI.Models.ViewModels.Purchase;
 
 global using ECommerce.IntegrationAPI.Gateways.PurchaseAPI.Services;
@@ -26,3 +25,4 @@ global using ECommerce.IntegrationAPI.Gateways.Services;
 global using ECommerce.IntegrationAPI.Gateways.Services.Interfaces;
 
 global using ECommerce.APIHandler;
+global using APIHandler.Models.ViewModels;
