@@ -9,9 +9,33 @@ public class IntegrationService : IIntegrationService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<SendPurchaseViewModelResponse> SendPurchase(SendPurchaseViewModel request)
+    public async Task<GetIntegrationsViewModelResponse> GetIntegrations()
     {
-        var result = await _unitOfWork.IntegrationAPIService.IntegrationAPISendPurchase(request);
-        return new SendPurchaseViewModelResponse();
+        var response = await _unitOfWork.IntegrationAPIIntegrationService.IntegrationAPIGetIntegrations();
+        return response;
+    }
+
+    public async Task<DetailIntegrationViewModelResponse> DetailIntegrationByFlow(string flowName)
+    {
+        var response = await _unitOfWork.IntegrationAPIIntegrationService.IntegrationAPIDetailIntegrationByFlow(flowName);
+        return response;
+    }
+
+    public async Task<CreateIntegrationViewModelResponse> CreateIntegration(CreateIntegrationViewModel integration)
+    {
+        var response = await _unitOfWork.IntegrationAPIIntegrationService.IntegrationAPICreateIntegration(integration);
+        return response;
+    }
+
+    public async Task<UpdateIntegrationViewModelResponse> UpdateIntegrationById(UpdateIntegrationViewModel integration)
+    {
+        var response = await _unitOfWork.IntegrationAPIIntegrationService.IntegrationAPIUpdateIntegrationById(integration);
+        return response;
+    }
+
+    public async Task<DetailIntegrationViewModelResponse> DeleteIntegrationById(string id)
+    {
+        var response = await _unitOfWork.IntegrationAPIIntegrationService.IntegrationAPIDeleteIntegrationById(id);
+        return response;
     }
 }

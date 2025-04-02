@@ -2,5 +2,9 @@
 
 public interface IIntegrationService
 {
-    Task<SendPurchaseViewModelResponse> SendPurchase(SendPurchaseViewModel request);
+    Task<GetIntegrationsViewModelResponse> GetIntegrations();
+    Task<DetailIntegrationViewModelResponse> DetailIntegrationByFlow(string flowName);
+    Task<CreateIntegrationViewModelResponse> CreateIntegration(CreateIntegrationViewModel product);
+    Task<UpdateIntegrationViewModelResponse> UpdateIntegrationById(UpdateIntegrationViewModel product);
+    Task<DetailIntegrationViewModelResponse> DeleteIntegrationById(string id);
 }
