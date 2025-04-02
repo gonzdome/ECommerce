@@ -28,6 +28,10 @@ global using ECommerce.AggregatorWebAPI.Gateways.ProductAPI.Services.Interfaces;
 global using ECommerce.AggregatorWebAPI.Gateways.IntegrationAPI.Services;
 global using ECommerce.AggregatorWebAPI.Gateways.IntegrationAPI.Services.Interfaces;
 
-
+global using ECommerce.AggregatorWebAPI.Models.ViewModels.User;
+global using ECommerce.AggregatorWebAPI.Gateways.AuthAPI.Models.ViewModels.Users;
+global using ECommerce.AggregatorWebAPI.Gateways.AuthAPI.Models.ViewModels.Categories;
+global using ECommerce.AggregatorWebAPI.Gateways.AuthAPI.Services;
+global using ECommerce.AggregatorWebAPI.Gateways.AuthAPI.Services.Interfaces;
 
 global using ECommerce.APIHandler;
