@@ -1,6 +1,4 @@
-﻿using ECommerce.AggregatorWebAPI.Gateways.Services.Interfaces;
-
-namespace ECommerce.AggregatorWebAPI.Services;
+﻿namespace ECommerce.AggregatorWebAPI.Services;
 
 public class CategoryService : ICategoryService
 {
