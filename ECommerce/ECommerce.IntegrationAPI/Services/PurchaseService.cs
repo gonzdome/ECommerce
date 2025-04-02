@@ -2,16 +2,16 @@
 
 public class PurchaseService : IPurchaseService
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IGatewayUnitOfWork _gatewayUnitOfWork;
 
-    public PurchaseService(IUnitOfWork unitOfWork)
+    public PurchaseService(IGatewayUnitOfWork gatewayUnitOfWork)
     {
-        _unitOfWork = unitOfWork;
+        _gatewayUnitOfWork = gatewayUnitOfWork;
     }
 
-     public async Task<PurchaseAPIPostResponse> Purchase(PurchaseAPIPostRequest purchaseAPIPostRequest)
+    public async Task<PurchaseAPIPostResponse> Purchase(PurchaseAPIPostRequest purchaseAPIPostRequest)
     {
-        var purchaseResponse = await _unitOfWork.PurchaseAPIService.PurchaseAPISend(purchaseAPIPostRequest);
+        var purchaseResponse = await _gatewayUnitOfWork.PurchaseAPIService.PurchaseAPISend(purchaseAPIPostRequest);
         return purchaseResponse;
     }
 }
