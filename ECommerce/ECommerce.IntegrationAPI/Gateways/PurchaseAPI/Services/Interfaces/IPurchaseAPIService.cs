@@ -2,5 +2,5 @@
 
 public interface IPurchaseAPIService
 {
-    public Task<PurchaseAPIPostResponse> PurchaseAPISend(PurchaseAPIPostRequest purchaseAPIPostRequest);
+    public Task<PurchaseAPIPostResponse> PurchaseAPISend(PurchaseAPIPostRequest purchaseAPIPostRequest, string ApiName, string ApiUri);
 }

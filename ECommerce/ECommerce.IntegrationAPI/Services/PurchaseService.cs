@@ -9,9 +9,9 @@ public class PurchaseService : IPurchaseService
         _gatewayUnitOfWork = gatewayUnitOfWork;
     }
 
-    public async Task<PurchaseAPIPostResponse> Purchase(PurchaseAPIPostRequest purchaseAPIPostRequest)
+    public async Task<PurchaseAPIPostResponse> Purchase(PurchaseAPIPostRequest purchaseAPIPostRequest, string ApiName, string ApiUri)
     {
-        var purchaseResponse = await _gatewayUnitOfWork.PurchaseAPIService.PurchaseAPISend(purchaseAPIPostRequest);
+        var purchaseResponse = await _gatewayUnitOfWork.PurchaseAPIService.PurchaseAPISend(purchaseAPIPostRequest, ApiName, ApiUri);
         return purchaseResponse;
     }
 }
