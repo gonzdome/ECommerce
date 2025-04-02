@@ -1,10 +1,8 @@
-﻿using ECommerce.AggregatorWebAPI.Gateways.IntegrationAPI;
+﻿namespace ECommerce.AggregatorWebAPI.Gateways.IntegrationAPI.Services;
 
-namespace ECommerce.AggregatorWebAPI.Gateways.ProductAPI.Services;
-
-public class IntegrationAPIService : IntegrationAPIGateway, IIntegrationAPIService
+public class IntegrationAPIPurchaseService : IntegrationAPIPurchaseGateway, IIntegrationAPIPurchaseService
 {
-    public IntegrationAPIService(APIClient apiClient) : base(apiClient)
+    public IntegrationAPIPurchaseService(APIClient apiClient) : base(apiClient)
     {
     }
 
