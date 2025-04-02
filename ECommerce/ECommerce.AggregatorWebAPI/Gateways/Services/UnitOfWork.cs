@@ -7,7 +7,8 @@ public class UnitOfWork : IUnitOfWork
     private readonly APIClient _apiClient;
     private IProductAPIProductsService? _productAPIProductsService;
     private IProductAPICategoriesService? _productAPICategoriesService;
-    private IIntegrationAPIService? _IntegrationAPIService;
+    private IIntegrationAPIIntegrationService? _IntegrationAPIIntegrationService;
+    private IIntegrationAPIPurchaseService? _IntegrationAPIPurchaseService;
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly JsonSerializerOptions _options;
 
@@ -27,9 +28,13 @@ public class UnitOfWork : IUnitOfWork
         get { return _productAPICategoriesService = _productAPICategoriesService ?? new ProductAPICategoriesService(_apiClient); }
     }
 
-    public IIntegrationAPIService IntegrationAPIService
+    public IIntegrationAPIIntegrationService IntegrationAPIIntegrationService
     {
-        get { return _IntegrationAPIService = _IntegrationAPIService ?? new IntegrationAPIService(_apiClient); }
+        get { return _IntegrationAPIIntegrationService = _IntegrationAPIIntegrationService ?? new IntegrationAPIIntegrationService(_apiClient); }
     }
 
+    public IIntegrationAPIPurchaseService IntegrationAPIPurchaseService
+    {
+        get { return _IntegrationAPIPurchaseService = _IntegrationAPIPurchaseService ?? new IntegrationAPIPurchaseService(_apiClient); }
+    }
 }

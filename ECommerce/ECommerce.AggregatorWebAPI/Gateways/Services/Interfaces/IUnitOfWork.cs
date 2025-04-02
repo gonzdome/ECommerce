@@ -4,5 +4,6 @@ public interface IUnitOfWork
 {
     public IProductAPIProductsService ProductAPIProductsService { get; }
     public IProductAPICategoriesService ProductAPICategoriesService { get; }
-    public IIntegrationAPIService IntegrationAPIService { get; }
+    public IIntegrationAPIIntegrationService IntegrationAPIIntegrationService { get; }
+    public IIntegrationAPIPurchaseService IntegrationAPIPurchaseService { get; }
 }
