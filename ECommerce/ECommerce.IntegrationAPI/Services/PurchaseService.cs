@@ -24,10 +24,10 @@ public class PurchaseService : IPurchaseService
         var discount = GetDiscount(request.cliente.categoria, subTotal);
 
         PurchaseAPIPostRequest apiRequest = new PurchaseAPIPostRequest();
-        apiRequest.identificador = request.identificador != null ? request.identificador : Guid.NewGuid().ToString();
-        apiRequest.subTotal = subTotal;
-        apiRequest.valorTotal = (subTotal - (subTotal * discount));
-        apiRequest.descontos = discount;
+        apiRequest.identificador = Guid.NewGuid().ToString(); // should be cart id
+        apiRequest.subTotal = Math.Round(subTotal, 2, MidpointRounding.ToEven);
+        apiRequest.valorTotal = Math.Round((subTotal - (subTotal * discount)), 2, MidpointRounding.ToEven);
+        apiRequest.descontos = Math.Round((subTotal * discount), 2, MidpointRounding.ToEven);
 
         apiRequest.itens = request.itens.Select(i => new PurchaseItems()
         {
