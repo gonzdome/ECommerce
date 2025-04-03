@@ -1,4 +1,6 @@
-﻿namespace ECommerce.AggregatorWebAPI.Models.ViewModels.Product;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace ECommerce.AggregatorWebAPI.Models.ViewModels.Product;
 
 public class DetailProductViewModel
 {
@@ -14,8 +16,8 @@ public class DetailProductViewModel
 
     public int Stock { get; set; }
 
-    [RegularExpression(@"\d{1,20}(\.\d{1,2})?", ErrorMessage = "Invalid format for price!")]
-    public double Price { get; set; }
+    [Precision(18, 2)]
+    public decimal Price { get; set; }
 
     public Guid CategoryId { get; set; }
 

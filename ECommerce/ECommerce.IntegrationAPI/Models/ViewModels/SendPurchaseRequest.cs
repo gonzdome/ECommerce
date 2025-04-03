@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿namespace ECommerce.IntegrationAPI.Models.ViewModels;
 
-namespace ECommerce.AggregatorWebAPI.Models.ViewModels.Purchase;
-
-public class SendPurchaseViewModel
+public class SendPurchaseRequest
 {
     public string? identificador { get; set; } = string.Empty;
     public string? dataVenda { get; set; } = string.Empty;
@@ -25,7 +23,7 @@ public class SendPurchaseViewModel
 
         [Precision(18, 1)]
         public decimal quantidade { get; set; } = 1;
-        
+
         [Precision(18, 2)]
         public decimal? precoUnitario { get; set; }
     }

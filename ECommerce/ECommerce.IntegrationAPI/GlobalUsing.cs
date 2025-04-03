@@ -9,6 +9,7 @@ global using ECommerce.IntegrationAPI.DTO;
 global using ECommerce.IntegrationAPI.DTO.DTOMapping;
 
 global using ECommerce.IntegrationAPI.Models.Entities;
+global using ECommerce.IntegrationAPI.Models.ViewModels;
 
 global using ECommerce.IntegrationAPI.Services;
 global using ECommerce.IntegrationAPI.Services.Interfaces;
