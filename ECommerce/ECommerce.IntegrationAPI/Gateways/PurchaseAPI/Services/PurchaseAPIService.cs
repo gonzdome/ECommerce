@@ -6,9 +6,9 @@ public class PurchaseAPIService : PurchaseAPIGateway, IPurchaseAPIService
     {
     }
 
-    public async Task<PurchaseAPIPostResponse> PurchaseAPISend(PurchaseAPIPostRequest purchaseAPIPostRequest)
+    public async Task<PurchaseAPIPostResponse> PurchaseAPISend(PurchaseAPIPostRequest request, string ApiName, string ApiUri)
     {
-        var purchaseResponse = await Purchase(purchaseAPIPostRequest);
+        var purchaseResponse = await Purchase(request, ApiName, ApiUri);
         return purchaseResponse;
     }
 }

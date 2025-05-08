@@ -9,12 +9,12 @@ public class PurchaseAPIGateway
         _apiClient = apiClient;
     }
 
-    protected internal async Task<PurchaseAPIPostResponse> Purchase(PurchaseAPIPostRequest purchaseAPIPostRequest)
+    protected internal async Task<PurchaseAPIPostResponse> Purchase(PurchaseAPIPostRequest purchaseAPIPostRequest, string ApiName, string ApiUri)
     {
         var purchaseHeaders = new List<ApiHeadersViewModel>();
-        purchaseHeaders.Add(new ApiHeadersViewModel() { HeaderProperty = "email", HeaderValue = "email@hotmail.com" });
+        purchaseHeaders.Add(new ApiHeadersViewModel() { HeaderProperty = "email", HeaderValue = "" });
 
-        var apiResponse = await _apiClient.Handle("POST", "Test", $"{purchaseAPIPostRequest.ApiUri}", purchaseAPIPostRequest, purchaseHeaders);
+        var apiResponse = await _apiClient.Handle("POST", ApiName, ApiUri, purchaseAPIPostRequest, purchaseHeaders);
 
         var response = new PurchaseAPIPostResponse() { Success = apiResponse.Success, Code = apiResponse.Code, Message = apiResponse.Message };
         if (apiResponse.Success == false) return response;

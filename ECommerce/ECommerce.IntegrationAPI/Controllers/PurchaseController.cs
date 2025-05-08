@@ -14,14 +14,13 @@ public class PurchaseController : ControllerBase
     }
 
     [HttpPost("SendPurchase")]
-    public async Task<ActionResult<PurchaseAPIPostResponse>> SendPurchase(PurchaseAPIPostRequest purchaseAPIPostRequest)
+    public async Task<ActionResult<PurchaseAPIPostResponse>> SendPurchase(SendPurchaseRequest request)
     {
         try
         {
             var integrationDetailsByFlow = await _integrationService.DetailIntegrationByFlow("Purchase");
-            purchaseAPIPostRequest.ApiUri = integrationDetailsByFlow.Uri;
 
-            var purchaseResponse = await _purchaseService.Purchase(purchaseAPIPostRequest);
+            var purchaseResponse = await _purchaseService.Purchase(request, integrationDetailsByFlow.Name, integrationDetailsByFlow.Uri);
             return Ok(purchaseResponse);
         }
         catch (Exception e)

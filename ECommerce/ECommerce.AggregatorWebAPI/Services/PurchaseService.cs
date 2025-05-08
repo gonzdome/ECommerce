@@ -14,6 +14,6 @@ public class PurchaseService : IPurchaseService
     public async Task<SendPurchaseViewModelResponse> SendPurchase(SendPurchaseViewModel request)
     {
         var result = await _unitOfWork.IntegrationAPIPurchaseService.IntegrationAPISendPurchase(request);
-        return new SendPurchaseViewModelResponse();
+        return result;
     }
 }

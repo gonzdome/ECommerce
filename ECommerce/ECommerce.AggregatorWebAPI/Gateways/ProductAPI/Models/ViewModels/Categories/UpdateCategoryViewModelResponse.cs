@@ -1,4 +1,4 @@
-﻿namespace ECommerce.AggregatorWebAPI.Gateways.ProductAPI.Models.ViewModels.Products;
+﻿namespace ECommerce.AggregatorWebAPI.Gateways.ProductAPI.Models.ViewModels.Categories;
 
 public class UpdateCategoryViewModelResponse
 {

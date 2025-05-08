@@ -15,7 +15,7 @@ public class ProductDTO
     public int Stock { get; set; }
 
     [Precision(18, 2)]
-    public double Price { get; set; }
+    public decimal Price { get; set; }
 
     public Guid CategoryId { get; set; }
 

@@ -6,4 +6,6 @@ public interface IUnitOfWork
     public IProductAPICategoriesService ProductAPICategoriesService { get; }
     public IIntegrationAPIIntegrationService IntegrationAPIIntegrationService { get; }
     public IIntegrationAPIPurchaseService IntegrationAPIPurchaseService { get; }
+    public IAuthAPIUsersService AuthAPIUsersService { get; }
+    public IAuthAPICategoriesService AuthAPICategoriesService { get; }
 }

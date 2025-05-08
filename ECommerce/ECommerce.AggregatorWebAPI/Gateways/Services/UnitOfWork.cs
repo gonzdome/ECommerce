@@ -9,6 +9,8 @@ public class UnitOfWork : IUnitOfWork
     private IProductAPICategoriesService? _productAPICategoriesService;
     private IIntegrationAPIIntegrationService? _IntegrationAPIIntegrationService;
     private IIntegrationAPIPurchaseService? _IntegrationAPIPurchaseService;
+    private IAuthAPIUsersService? _authAPIUsersService;
+    private IAuthAPICategoriesService? _authAPICategoriesService;
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly JsonSerializerOptions _options;
 
@@ -36,5 +38,15 @@ public class UnitOfWork : IUnitOfWork
     public IIntegrationAPIPurchaseService IntegrationAPIPurchaseService
     {
         get { return _IntegrationAPIPurchaseService = _IntegrationAPIPurchaseService ?? new IntegrationAPIPurchaseService(_apiClient); }
+    }
+
+    public IAuthAPIUsersService AuthAPIUsersService
+    {
+        get { return _authAPIUsersService = _authAPIUsersService ?? new AuthAPIUsersService(_apiClient); }
+    }
+
+    public IAuthAPICategoriesService AuthAPICategoriesService
+    {
+        get { return _authAPICategoriesService = _authAPICategoriesService ?? new AuthAPICategoriesService(_apiClient); }
     }
 }
